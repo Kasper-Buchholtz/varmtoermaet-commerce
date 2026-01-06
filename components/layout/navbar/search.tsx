@@ -1,40 +1,47 @@
 'use client';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { Button } from 'components/atoms/button';
 import Form from 'next/form';
 import { useSearchParams } from 'next/navigation';
 
-export default function Search() {
+type SearchProps = {
+  onSubmit?: (formData: FormData) => void;
+};
+
+export function Search({ onSubmit }: SearchProps) {
   const searchParams = useSearchParams();
 
   return (
-    <Form action="/search" className="w-max-[550px] relative w-full lg:w-80 xl:w-full">
-      <input
-        key={searchParams?.get('q')}
-        type="text"
-        name="q"
-        placeholder="Search for products..."
-        autoComplete="off"
-        defaultValue={searchParams?.get('q') || ''}
-        className="text-md w-full rounded-lg border bg-white px-4 py-2 text-black placeholder:text-neutral-500 md:text-sm dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400"
-      />
-      <div className="absolute right-0 top-0 mr-3 flex h-full items-center">
-        <MagnifyingGlassIcon className="h-4" />
-      </div>
-    </Form>
-  );
-}
-
-export function SearchSkeleton() {
-  return (
-    <form className="w-max-[550px] relative w-full lg:w-80 xl:w-full">
-      <input
-        placeholder="Search for products..."
-        className="w-full rounded-lg border bg-white px-4 py-2 text-sm text-black placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400"
-      />
-      <div className="absolute right-0 top-0 mr-3 flex h-full items-center">
-        <MagnifyingGlassIcon className="h-4" />
-      </div>
-    </form>
+    <div
+      className="h-full relative w-full flex gap-2.5 justify-end"
+    >
+      <Form
+        action="/search"
+        onSubmit={(e) => {
+          if (!onSubmit) return;
+          e.preventDefault();
+          const formData = new FormData(e.currentTarget);
+          onSubmit(formData);
+        }}
+        className="h-full relative w-full flex gap-2.5 justify-end"
+      >
+        <input
+          key={searchParams?.get('q')}
+          type="text"
+          name="q"
+          placeholder="Hvad leder du efter...?"
+          autoComplete="off"
+          defaultValue={searchParams?.get('q') || ''}
+          className="text-md w-full max-w-3xl h-full rounded-lg border bg-beige px-4 py-2 text-black placeholder:text-neutral-500 md:text-sm"
+        />
+        <Button variant={'yellow'}>
+          Søg
+        </Button>
+        <Button variant={'beige'} onClick={close} className='size-11 px-0 py-0'>
+          <XMarkIcon className="size-5" />
+        </Button>
+      </Form>
+    </div>
   );
 }

@@ -1,0 +1,60 @@
+@import "tailwindcss";
+@import "./colors.css";
+@import "./text.css";
+@import "./breakpoints.css";
+@import "./grid.css";
+@import "./ease.css";
+@import "./spacing.css";
+@import "./lenis.css";
+@import "tw-animate-css";
+@plugin "tailwindcss-debug-screens";
+@plugin "@tailwindcss/typography";
+@plugin "tailwindcss-debug-screens";
+@plugin "@tailwindcss/container-queries";
+
+/* theme */
+@custom-variant theme-light (&:where([data-theme="light"] *));
+@custom-variant theme-dark (&:where([data-theme="dark"] *));
+@custom-variant theme-purple (&:where([data-theme="purple"] *));
+/* page */
+@custom-variant page-type-subpage (&:where([data-pagetype="subpage"] *));
+@custom-variant page-type-frontpage (&:where([data-pagetype="frontpage"] *));
+@custom-variant page-type-articlepage (&:where([data-pagetype="articlepage"] *));
+@custom-variant page-type-eventpage (&:where([data-pagetype="eventpage"] *));
+
+@custom-variant isopen (&:where([data-isopen="true"] *));
+
+@theme {
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  img[loading="lazy"] {
+    clip-path: inset(0.6px);
+  }
+}
+
+a,
+input,
+button {
+  @apply focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-neutral-600 dark:focus-visible:ring-offset-neutral-900;
+}

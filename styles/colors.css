@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@theme {
+  /* Varmtørmæt farver */
+  --color-white: #ffffff;
+  --color-beige: #f3eeea;
+  --color-yellow: #f9b200;
+  --color-dark: #151516;
+  --color-light-beige: #eceae6;
+}
